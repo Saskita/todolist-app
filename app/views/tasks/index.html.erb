@@ -1,35 +1,54 @@
-<h1 class="text-center mb-4">My To Do List 🗒🖌</h1>
-<h2>➕ Add a New Task</h2>
+<div class="row no-gutters mt-4">
+  <div class="container py-4 col-10 mt-4">
 
-<%= simple_form_for(@task) do |f| %>
-  <%= f.input :name, placeholder: 'Paperwork' %>
-  <%= f.input :description, placeholder: 'Write/ Send/ Count/ Bill/ Work' %>
-  <%= f.input :deadline, as: :datetime  %>
-  <%= f.input :completed, as: :boolean %>
+    <h1 class="text-center mb-4">My To Do List 🗒🖌</h1>
+
+    <div class="accordion accordion-flush w-25 border border-info" id="accordionFlushExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            ➕ Add a New Task
+          </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+            <%= simple_form_for(@task) do |f| %>
+              <%= f.input :name, placeholder: 'Paperwork' %>
+              <%= f.input :description, placeholder: 'Write/ Send/ Count/ Bill/ Work' %>
+              <%= f.input :deadline, as: :datetime  %>
+              <%= f.input :completed, as: :boolean %>
 
 
-  <% button_text = @task.new_record? ? "Add New Task" : "Edit my Task" %>
-  <%= f.submit button_text, class: "btn btn-success border mt-3" %>
-<% end%>
+              <% button_text = @task.new_record? ? "Add New Task" : "Edit my Task" %>
+              <%= f.submit button_text, class: "btn btn-success border mt-3" %>
+            <% end%>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<div class="list">
-  <p> You have :
-      <%= @tasks.count %> Tasks to do.
-  </p>
 
-  <div class="tasks">
-    <ul>
-      <% @tasks.order(deadline: :asc).each do |task| %>
-        <h3><%= task.name %></h3>
-        <p>• <%= task.description %>
-        (<% if @task.completed? == true %>
-              <i class="far fa-check-square"></i>
-            <% else %>
-              <i class="far fa-square"></i>
-            <% end %>)
-        </p>
-      <% end %>
-    </ul>
+    <hr>
+    <div class="list">
+      <p> You have :
+          <%= @tasks.count %> Tasks to do.
+      </p>
+
+      <div class="tasks">
+        <ul>
+          <% @tasks.order(deadline: :asc).each do |task| %>
+            <h3><%= task.name %></h3>
+            <p>• <%= task.description %>
+            (<% if @task.completed? == true %>
+                  <i class="far fa-check-square"></i>
+                <% else %>
+                  <i class="far fa-square"></i>
+                <% end %>)
+            </p>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 
