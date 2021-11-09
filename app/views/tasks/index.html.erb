@@ -1,0 +1,35 @@
+<h1 class="text-center mb-4">My To Do List 🗒🖌</h1>
+<h2>➕ Add a New Task</h2>
+
+<%= simple_form_for(@task) do |f| %>
+  <%= f.input :name, placeholder: 'Paperwork' %>
+  <%= f.input :description, placeholder: 'Write/ Send/ Count/ Bill/ Work' %>
+  <%= f.input :deadline, as: :datetime  %>
+  <%= f.input :completed, as: :boolean %>
+
+
+  <% button_text = @task.new_record? ? "Add New Task" : "Edit my Task" %>
+  <%= f.submit button_text, class: "btn btn-success border mt-3" %>
+<% end%>
+
+<div class="list">
+  <p> You have :
+      <%= @tasks.count %> Tasks to do.
+  </p>
+
+  <div class="tasks">
+    <ul>
+      <% @tasks.order(deadline: :asc).each do |task| %>
+        <h3><%= task.name %></h3>
+        <p>• <%= task.description %>
+        (<% if @task.completed? == true %>
+              <i class="far fa-check-square"></i>
+            <% else %>
+              <i class="far fa-square"></i>
+            <% end %>)
+        </p>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
