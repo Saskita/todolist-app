@@ -1,5 +1,47 @@
-.list {
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&display=swap');
+
+*{
+  box-sizing: border-box;
 }
+
+body{
+  background: linear-gradient(to top left, rgba(255,100,75,0.501961), rgba(255,58,58,0.14902), #2cfff5),linear-gradient(to top right, rgba(63,0,255,0.65098), rgba(255,0,0,0.4), #ffe290) rgba(255,85,203,0.501961);
+}
+
+.container {
+  font-family: 'Barlow';
+}
+
+.task-section{
+  background-color: rgba(255,255,255,0.28);
+}
+
+.accordion-item{
+  background-color: transparent !important;
+}
+
+.accordion{
+  border: 1px solid rgb(23, 136, 125);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.deadline-date{
+  font-weight: 500;
+}
+
+.count-color{
+  color: rgb(23, 136, 125);
+}
+
+h1{
+  color: rgb(13, 77, 70);
+}
+
+ul{
+  list-style-type: none;
+}
+
+// input{
+//   background-color: transparent;
+//   border: 1px solid rgb(23, 136, 125);
+// }

@@ -1,0 +1,41 @@
+<div class="task-card" data-controller="edit-task" data-edit-task-target="card">
+  <li>
+    <div class="d-flex align-items-baseline gap-3">
+      <%= checkmark(task) %>
+      <%# <i class="= task.checkmark"></i> %>
+      <h5 id="task-<%= task.id %>"><%= task.name %></h5>
+    </div>
+    <div class="d-flex justify-content-between">
+      <p>
+        <%= task.description %>
+        <br>
+        Before : <span class="deadline-date"><%= task.deadline.strftime("%d/%m/%Y at %I:%M%p") %></span>
+      </p>
+      <div class="icons d-flex gap-1">
+        <p>
+          <div class="task-infos <%= 'd-none' if task.errors.any? %>" data-edit-task-target="infos">
+            <i class="fas fa-pen fa-xs" data-action="click->edit-task#displayForm"></i>
+          </div>
+          <p>•</p>
+          <%= link_to task_path(task), method: :delete, remote: true, data: { confirm: "Are you sure you want to delete this task ?"} do %>
+          <i class="far fa-trash-alt ml-2 text-danger"></i>
+          <% end %>
+        </p>
+      </div>
+    </div>
+
+    <div class="w-50 mb-2">
+      <%= simple_form_for task, html: { class: task.errors.any? ? '' : 'd-none', data: { edit_task_target: 'form', action: 'submit->edit-task#update' } } do |f| %>
+        <hr>
+          <%= f.input :name, placeholder: 'Paperwork' %>
+          <%= f.input :description, placeholder: 'Write/ Send/ Count/ Bill/ Work' %>
+          <%= f.input :deadline, as: :datetime  %>
+          <%= f.input :completed, as: :boolean %>
+
+          <% button_text = "Update my Task" %>
+          <%= f.submit button_text, class: "btn btn-success border mt-3" %>
+        <hr class="mb-5">
+      <% end%>
+    </div>
+  </li>
+</div>

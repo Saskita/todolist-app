@@ -1,21 +1,20 @@
 <div class="row no-gutters mt-4">
   <div class="container py-4 col-10 mt-4">
 
-    <h1 class="text-center mb-4">My To Do List 🗒🖌</h1>
+    <h1 class="text-center mb-5">My Online To Do List</h1>
 
-    <div class="w-50" data-controller="insert-in-list" data-insert-in-list-position-value="afterbegin">
-      <div>
-
-        <div class="accordion accordion-flush w-75 border border-info" id="accordionFlushExample">
+    <div data-controller="insert-in-list" data-insert-in-list-position-value="afterbegin" class="d-flex justify-content-center">
+      <div class="task-section p-5 w-75">
+        <div class="accordion accordion-flush w-50 mb-4" id="accordionFlushExample">
           <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                ➕ Add a New Task
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" style="background-color: transparent">
+                <h4>ADD A NEW TASK</h4>
               </button>
             </h2>
             <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
               <div class="accordion-body">
-                <%= simple_form_for(@task, data: {
+                <%= simple_form_for(@task, class: 'd-none', data: {
                           insert_in_list_target: 'form',
                           action: 'submit->insert-in-list#send'
                         }) do |f| %>
@@ -25,8 +24,8 @@
                   <%= f.input :completed, as: :boolean %>
 
 
-                  <% button_text = @task.new_record? ? "Add New Task" : "Edit my Task" %>
-                  <%= f.submit button_text, class: "btn btn-info border mt-3" %>
+                  <% button_text = "Add New Task" %>
+                  <%= f.submit button_text, class: "btn border mt-3", style:"background-color: rgb(23, 136, 125); color: white" %>
                 <% end%>
               </div>
             </div>
@@ -34,23 +33,32 @@
         </div>
 
 
-        <hr class="w-75">
+        <hr class="w-50">
         <div class="list">
           <h4> You have :
-            <%= @tasks.count %> Tasks to do.
+            <span class="count-color"><%= @tasks.count %></span> Tasks to do.
           </h4>
-          <hr class="w-75">
+          <hr class="w-50">
           <div class="tasks">
             <ul data-insert-in-list-target="items">
               <% @tasks.each do |task| %>
-                <%= render 'task', task: task %>
+                <%= render 'task_infos', task: task %>
               <% end %>
+
               <br>
-              <hr class="w-75">
-              <h3>Done Tasks</h3>
-              <hr class="w-75">
+              <hr class="w-50">
+              <h3>Done Tasks ( <span class="text-success"><%= @done_tasks.count %></span> )</h3>
+              <hr class="w-50">
               <% @done_tasks.each do |task| %>
-                <%= render 'task', task: task %>
+                <%= render 'task_infos', task: task %>
+              <% end %>
+
+              <br>
+              <hr class="w-50">
+              <h3>Missed Tasks ( <span class="text-danger"><%= @missed_tasks.count %></span> )</h3>
+              <hr class="w-50">
+              <% @missed_tasks.each do |task| %>
+                <%= render 'task_infos', task: task %>
               <% end %>
             </ul>
           </div>

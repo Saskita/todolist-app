@@ -1,17 +1,20 @@
 import { Controller } from "stimulus"
 import { csrfToken } from "@rails/ujs";
 
+console.log("hello");
 
 export default class extends Controller {
   static targets = ['items', 'form'];
-  static values = { position: String }
+  static values = { position: String };
 
   async send(e) {
     e.preventDefault();
 
     const options = {
       method: 'POST',
-      headers: { 'Accept': "application/json", 'X-CSRF-Token': csrfToken() },
+      headers: { 'Accept': "application/json",
+                  'X-CSRF-Token': csrfToken()
+                },
       body: new FormData(this.formTarget)
     };
 

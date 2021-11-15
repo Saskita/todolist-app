@@ -4,8 +4,9 @@ class TasksController < ApplicationController
     # @tasks = Task.all
     @task = Task.new
 
+    @tasks = Task.where(completed: false && :deadline >= DateTime.current).order(deadline: :asc)
     @done_tasks = Task.where(completed: true).order(deadline: :asc)
-    @tasks = Task.where(completed: false).order(deadline: :asc)
+    @missed_tasks = @tasks.missed_tasks.order(deadline: :asc)
   end
 
   def show
@@ -30,7 +31,13 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     @task.update(task_params)
+
+    respond_to do |format|
+      format.html { redirect_to tasks_path }
+      format.text { render partial: 'tasks/task_infos', locals: { task: @task }, formats: [:html] }
+    end
   end
+
 
   def destroy
     @task = Task.find(params[:id])
