@@ -1,8 +1,6 @@
 import { Controller } from "stimulus"
 import { csrfToken } from "@rails/ujs";
 
-console.log("hello");
-
 export default class extends Controller {
   static targets = ['items', 'form'];
   static values = { position: String };

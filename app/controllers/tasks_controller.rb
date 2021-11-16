@@ -3,10 +3,10 @@ class TasksController < ApplicationController
   def index
     # @tasks = Task.all
     @task = Task.new
-
-    @tasks = Task.where(completed: false && :deadline >= DateTime.current).order(deadline: :asc)
+    @tasks = Task.on_going.where(completed: false)
     @done_tasks = Task.where(completed: true).order(deadline: :asc)
-    @missed_tasks = @tasks.missed_tasks.order(deadline: :asc)
+    @missed_tasks = Task.missed.passed.order(deadline: :asc)
+
   end
 
   def show
@@ -49,7 +49,7 @@ class TasksController < ApplicationController
 
   def json_response
     {
-      html: render_to_string(partial: 'tasks/task.html', locals: { task: @task }),
+      html: render_to_string(partial: 'tasks/task_infos.html', locals: { task: @task }),
       completed: @task.completed?
     }
   end
