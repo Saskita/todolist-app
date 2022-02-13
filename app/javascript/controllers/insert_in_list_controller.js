@@ -21,6 +21,7 @@ export default class extends Controller {
     this.itemsTarget.insertAdjacentHTML(this.positionValue, data.html);
     // this.formTarget.outerHTML = data.form;
     console.log(data)
+
   }
 }
 
